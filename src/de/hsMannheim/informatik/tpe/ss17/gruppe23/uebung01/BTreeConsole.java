@@ -2,6 +2,11 @@ package de.hsMannheim.informatik.tpe.ss17.gruppe23.uebung01;
 
 import static gdi.MakeItSimple.*;
 
+/**
+ * Gruppe 2-3:
+ * @author Max Granzow(1624770)
+ * @author Joshua Joost(1626034)
+ */
 public class BTreeConsole {
 	//TODO Die erste Zahl aus einer Datei wird als erstes Element mit eingefügt.
 	private static final char SPACECHARACTER = ' ';

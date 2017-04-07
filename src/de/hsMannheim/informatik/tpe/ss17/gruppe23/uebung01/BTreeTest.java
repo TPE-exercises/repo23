@@ -4,29 +4,30 @@ import static gdi.MakeItSimple.*;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Gruppe 2-3:
+ * @author Max Granzow(1624770)
+ * @author Joshua Joost(1626034)
+ */
 public class BTreeTest {
 
+	BTree tree;
+	
 	@Before
 	public void setUp() throws Exception {
-	}
-
-	@After
-	public void tearDown() throws Exception {
+		tree = new BTree(2);
 	}
 	
 	@Test
 	public void createBTreeTest() {
-		BTree tree = new BTree(2);
 		assertTrue(tree.isEmpty());
 	}
 	
 	@Test
 	public void isEmptyTest() {
-		BTree tree = new BTree(2);
 		assertTrue(tree.isEmpty());
 		
 		tree.insert(new Integer(123));
@@ -35,49 +36,50 @@ public class BTreeTest {
 
 	@Test
 	public void getMinTest() {
-		BTree tree = new BTree(2);
 		tree.insert(new Integer(5));
 		assertEquals(new Integer(5), tree.getMin());
+		
 		tree.insert(new Integer(6));
 		assertEquals(new Integer(5), tree.getMin());
+		
 		tree.insert(new Integer(4));
 		tree.insert(new Integer(8));
 		tree.insert(new Integer(9));
 		assertEquals(new Integer(4), tree.getMin());
+		
 		tree.insert(new Integer(-100));
 		assertEquals(new Integer(-100), tree.getMin());
 	}
 	
 	@Test(expected = GDIException.class)
 	public void getMinEmptyTree() {
-		BTree tree = new BTree(2);
-		Integer min = tree.getMin();
+		tree.getMin();
 	}
 	
 	@Test
 	public void getMaxTest() {
-		BTree tree = new BTree(2);
 		tree.insert(new Integer(5));
 		assertEquals(new Integer(5), tree.getMax());
+		
 		tree.insert(new Integer(6));
 		assertEquals(new Integer(6), tree.getMax());
+		
 		tree.insert(new Integer(4));
 		tree.insert(new Integer(8));
 		tree.insert(new Integer(9));
 		assertEquals(new Integer(9), tree.getMax());
+		
 		tree.insert(new Integer(-100));
 		assertEquals(new Integer(9), tree.getMax());
 	}
 	
 	@Test(expected = GDIException.class)
 	public void getMaxEmptyTree() {
-		BTree tree = new BTree(2);
-		Integer min = tree.getMax();
+		tree.getMax();
 	}
 	
 	@Test
 	public void containsElementTest() {
-		BTree tree = new BTree(2);
 		assertFalse(tree.contains(null));
 		assertFalse(tree.contains(new Integer(5)));
 		assertFalse(tree.contains(new Integer(-5)));
@@ -104,7 +106,6 @@ public class BTreeTest {
 
 	@Test
 	public void sizeTest() {
-		BTree tree = new BTree(2);
 		assertEquals(0, tree.size());
 		
 		tree.insert(new Integer(3));
@@ -139,7 +140,6 @@ public class BTreeTest {
 
 	@Test
 	public void heightTest() {
-		BTree tree = new BTree(2);
 		assertEquals(0, tree.height());
 		
 		tree.insert(new Integer(3));
@@ -170,7 +170,47 @@ public class BTreeTest {
 	
 	@Test
 	public void insertTest(){
-		// TODO
+		
+		assertTrue(tree.insert(new Integer(3)));
+		assertTrue(tree.insert(new Integer(4)));
+		assertTrue(tree.insert(new Integer(-9)));
+		assertTrue(tree.insert(new Integer(0)));
+
+		assertFalse(tree.insert(new Integer(4)));
+		assertFalse(tree.insert(new Integer(-9)));
+		assertFalse(tree.insert(new Integer(0)));
+
+		assertFalse(tree.insert((Object)null));
+		
+		assertTrue(tree.contains(new Integer("3")));
+		assertTrue(tree.contains(new Integer("4")));
+		assertTrue(tree.contains(new Integer("-9")));
+		assertTrue(tree.contains(new Integer("0")));
+		
+		assertFalse(tree.contains(new Integer("-20")));
+		assertFalse(tree.contains(new Integer("100")));
+
+	}
+	
+	@Test
+	public void valuesTest() {
+		tree.insert(new Integer(3));
+		tree.insert(new Integer(4));
+		tree.insert(new Integer(-9));
+		tree.insert(new Integer(0));
+		tree.insert(new Integer(6));
+		tree.insert(new Integer(7));
+		tree.insert(new Integer(8));
+		tree.insert(new Integer(9));
+		
+		Object[] values = tree.values();
+		Object[] reference = {3, 7, -9, 0, 4, 6, 8, 9};
+		
+		assertEquals(reference.length, values.length);
+		
+		for(int i = 0; i < reference.length && i < values.length; i++) {
+			assertEquals(reference[i], values[i]);
+		}
 	}
 	
 	@Test
@@ -215,7 +255,7 @@ public class BTreeTest {
 	
 	@Test
 	public void cloneTest() {
-		BTree tree = new BTree(2), clone;
+		BTree clone;
 		
 		for(int i = -10; i <= 10; i++) {
 			tree.insert(new Integer(i));
@@ -240,12 +280,16 @@ public class BTreeTest {
 	
 	@Test
 	public void toStringTest() {
-		BTree tree = new BTree(2);
 		assertEquals("", tree.toString());
 		
 		tree.insert(new Integer(3));
-		
-		// TODO
+		assertEquals("[3] ", tree.toString());
+
+		tree.insert(new Integer(4));
+		tree.insert(new Integer(5));
+		tree.insert(new Integer(6));
+		tree.insert(new Integer(7));
+		assertEquals("[5] [3 4] [6 7] ", tree.toString());
 	}
-	
+
 }

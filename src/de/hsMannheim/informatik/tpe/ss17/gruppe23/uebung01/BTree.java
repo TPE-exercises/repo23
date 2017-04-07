@@ -1,44 +1,25 @@
-/* TODO: Known bugs
-
- * -BTree Bug: When default File has: 1 1 3 5 8 6 2 9 10 11
-	Prints on the console: 3-6-9--1-2--5--8-11--10
-	But on order 1 there are max 2 elements allowed
-
-
- * Bug, when default file has the following values: 2 3 13 5 6 4 67 5 78 3 9 0 23 33 4 7 99 98 97 96 2 1 8 10 11
-   Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: 5
-	at de.hsMannheim.informatik.tpe.ss17.uebung01.BTreeNode.insert(BTreeNode.java:138)
-	at de.hsMannheim.informatik.tpe.ss17.uebung01.BTreeNode.split(BTreeNode.java:204)
-	at de.hsMannheim.informatik.tpe.ss17.uebung01.BTree.insertRecursive(BTree.java:56)
-	at de.hsMannheim.informatik.tpe.ss17.uebung01.BTree.insertRecursive(BTree.java:60)
-	at de.hsMannheim.informatik.tpe.ss17.uebung01.BTree.insert(BTree.java:38)
-	at de.hsMannheim.informatik.tpe.ss17.uebung01.BTree.insert(BTree.java:67)
-	at de.hsMannheim.informatik.tpe.ss17.uebung01.BTreeConsole.insertIntoBTree(BTreeConsole.java:120)
-	at de.hsMannheim.informatik.tpe.ss17.uebung01.BTreeConsole.sitANewBTree(BTreeConsole.java:108)
-	at de.hsMannheim.informatik.tpe.ss17.uebung01.BTreeConsole.creatingANewBTreePossibilities(BTreeConsole.java:156)
-	at de.hsMannheim.informatik.tpe.ss17.uebung01.BTreeConsole.createANewBTree(BTreeConsole.java:196)
-	at de.hsMannheim.informatik.tpe.ss17.uebung01.BTreeConsole.main(BTreeConsole.java:231)
- */
-
 package de.hsMannheim.informatik.tpe.ss17.gruppe23.uebung01;
 
 import static gdi.MakeItSimple.*;
 
-import gdi.MakeItSimple.GDIException;
-
+/**
+ * Gruppe 2-3:
+ * @author Max Granzow(1624770)
+ * @author Joshua Joost(1626034)
+ */
 public class BTree implements ADTBTree {
 
 	private static final char SPACECHARACTER = ' ';
 
 	private BTreeNode root;
-	private int order;
+	private int degree;
 
-	public BTree(int order) {
-		if(order <= 0) {
+	public BTree(int degree) {
+		if(degree <= 0) {
 			throw new GDIException("The order has to be positive.");
 		}
 		else {
-			this.order = order;
+			this.degree = degree;
 		}
 	}
 
@@ -49,7 +30,7 @@ public class BTree implements ADTBTree {
 	 */
 
 	public int getOrder(){
-		return this.order;
+		return this.degree;
 	}
 
 	public boolean insert(Object o) {
@@ -60,13 +41,13 @@ public class BTree implements ADTBTree {
 
 		if(root == null) {
 			// Tree is empty
-			root = new BTreeNode(order);
+			root = new BTreeNode(degree);
 			root.insert(o);
 		}
 		else {
 			// Tree is not empty
 			// 1. find leave
-			BTreeNode newRoot =  new BTreeNode(order);
+			BTreeNode newRoot =  new BTreeNode(degree);
 			insertRecursive(o, root, newRoot);
 
 			if(!newRoot.isEmpty()) {
@@ -79,14 +60,8 @@ public class BTree implements ADTBTree {
 	}
 
 	private void insertRecursive(Object o, BTreeNode currentNode, BTreeNode previousNode) {
-		if(currentNode.isLeave()) {
+		if(currentNode.isLeaf()) {
 			currentNode.insert(o);
-
-			/*if(currentNode.isOverFilled()) {
-				//BTreeNode rightPart = currentNode.getRightPart();
-				//previousNode.insert(currentNode.split(), rightPart);
-				currentNode.split(previousNode);
-			}*/
 		}
 		else {
 			insertRecursive(o, currentNode.getNextNodeToSearch(o), currentNode);
@@ -166,7 +141,7 @@ public class BTree implements ADTBTree {
 	}
 
 	private int height(BTreeNode currentNode, int currentHeight) {
-		if(currentNode.isLeave()) {
+		if(currentNode.isLeaf()) {
 			return currentHeight + 1;
 		}
 		else {
@@ -180,10 +155,11 @@ public class BTree implements ADTBTree {
 			throw new GDIException("No maximum element in the B-Tree.");
 		}
 		else {
-			return getMax(root);
+			return (Integer)root.getMax();
 		}
 	}
 
+	/*
 	private Integer getMax(BTreeNode currentNode) {
 		if(currentNode.isLeave()) {
 			return (Integer)currentNode.getMax();
@@ -192,6 +168,7 @@ public class BTree implements ADTBTree {
 			return getMax(currentNode.getLargestChild());
 		}
 	}
+	*/
 
 	@Override
 	public Integer getMin() {
@@ -199,10 +176,11 @@ public class BTree implements ADTBTree {
 			throw new GDIException("No minimum element in the B-Tree.");
 		}
 		else {
-			return getMin(root);
+			return (Integer)root.getMin();
 		}
 	}
 
+	/*
 	private Integer getMin(BTreeNode currentNode) {
 		if(currentNode.isLeave()) {
 			return (Integer)currentNode.getMin();
@@ -211,15 +189,11 @@ public class BTree implements ADTBTree {
 			return getMin(currentNode.getSmallestChild());
 		}
 	}
+	*/
 
 	@Override
 	public boolean isEmpty() {
 		return root == null;
-	}
-
-	@Override
-	public void addAll(BTree otherTree) {
-		// TODO addAll!
 	}
 
 	@Override
@@ -231,7 +205,7 @@ public class BTree implements ADTBTree {
 		if(node == null) {
 			return new String();
 		}
-		if(node.isLeave()) {
+		if(node.isLeaf()) {
 			return node.toString();
 		}
 		else {
@@ -270,7 +244,7 @@ public class BTree implements ADTBTree {
 		if(node == null) {
 			return "";
 		}
-		if(node.isLeave()) {
+		if(node.isLeaf()) {
 			return node.toString();
 		}
 		else {
@@ -300,7 +274,7 @@ public class BTree implements ADTBTree {
 		if(node == null) {
 			return "";
 		}
-		if(node.isLeave()) {
+		if(node.isLeaf()) {
 			return node.toString();
 		}
 		else {
@@ -326,7 +300,7 @@ public class BTree implements ADTBTree {
 		println(toStringLevelorder());
 	}
 
-	public String toStringLevelorder() { // TODO: modifier private
+	private String toStringLevelorder() {
 		String elements = "";
 		// TODO eigene ADT Queue
 		java.util.Queue<BTreeNode> queue = new java.util.LinkedList<BTreeNode>();
@@ -350,18 +324,35 @@ public class BTree implements ADTBTree {
 
 	@Override
 	public BTree clone() {
-		// TODO clone()
-		return null;
+		BTree clone = new BTree(degree);
+		
+		clone.root = root.cloneDeep();
+		
+		return clone;
 	}
 
 	@Override
 	public String toString() {
-		// TODO toString momentan im menu
-		return null;
+		return toStringLevelorder();
 	}
 
-
-
+	public Object[] values() {
+		return root.getAll();
+	}
+	
+	@Override
+	public void addAll(BTree otherTree) {
+		if(otherTree == null) {
+			throw new GDIException("otherTree is null, adding impossible.");
+		}
+		Object[] otherValues = otherTree.values();
+		
+		for(Object o : otherValues) {
+			insert(o);
+		}
+	}
+	
+	
 
 
 
@@ -400,7 +391,7 @@ public class BTree implements ADTBTree {
 	public void sketchElementsOnConsole() {
 		String levelorderElements = toStringLevelorder();
 
-		int maxAssignments = 2 * order + 1;
+		int maxAssignments = 2 * degree + 1;
 		int currentAmount = 1;
 		int currentAssignment = 0;
 		
@@ -424,8 +415,8 @@ public class BTree implements ADTBTree {
 		println(levelorderElements);
 		currentAssignment = 0;
 		currentAmount = 1;
-		final int maxfields = 2 * pow(2 * order + 1, maxAmount - 1) - 1;
-		int maxBlocks = pow(2 * order + 1, currentAmount - 1);
+		final int maxfields = 2 * pow(2 * degree + 1, maxAmount - 1) - 1;
+		int maxBlocks = pow(2 * degree + 1, currentAmount - 1);
 		int freeFields = maxfields - maxBlocks;
 		final int center = freeFields / 2;
 
@@ -445,7 +436,7 @@ public class BTree implements ADTBTree {
 					currentAmount++;
 					print("\n" + currentAmount + "\t"); 
 					//Define variables new for second amount
-					maxBlocks = pow(2 * order + 1, currentAmount - 1);
+					maxBlocks = pow(2 * degree + 1, currentAmount - 1);
 					freeFields = maxfields - maxBlocks;
 					innerDistance = (freeFields + 1) / maxBlocks;
 					border = (innerDistance - 1) / 2;
@@ -458,7 +449,7 @@ public class BTree implements ADTBTree {
 					currentAmount++;
 					currentAssignment = 1;
 					//Define variables new for next amount
-					maxBlocks = pow(2 * order + 1, currentAmount - 1);
+					maxBlocks = pow(2 * degree + 1, currentAmount - 1);
 					freeFields = maxfields - maxBlocks;
 					innerDistance = (freeFields + 1) / maxBlocks;
 					border = (innerDistance - 1) / 2;
