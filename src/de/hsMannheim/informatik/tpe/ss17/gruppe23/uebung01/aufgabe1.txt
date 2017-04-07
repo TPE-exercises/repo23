@@ -1,0 +1,7 @@
+Die Pakete sollen laut Java Konvention umgekehrt der URL geschrieben werden.
+Mit einer deutschen Domain fängt man daher seine Pakete mit de. an zu benennen.
+Anschliessend geht man hierarchisch in immer kleinere Ebenen, stehts
+mit einem Punkt getrennt. Damit garantiert man die Einzigartigkeit 
+seiner Paketbenennungen und vermeidet so, dass mehrere Gruppen oder
+Entwickler die gleichen Namen vergeben wuerden.
+
