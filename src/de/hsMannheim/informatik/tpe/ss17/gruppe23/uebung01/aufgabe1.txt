@@ -4,4 +4,5 @@ Anschliessend geht man hierarchisch in immer kleinere Ebenen, stehts
 mit einem Punkt getrennt. Damit garantiert man die Einzigartigkeit 
 seiner Paketbenennungen und vermeidet so, dass mehrere Gruppen oder
 Entwickler die gleichen Namen vergeben wuerden.
-
+Aus diesem Grund haben wir uns für diesen Paketnamen entschieden, er steht nicht 
+mit anderen Paketnamen im Konflikt.
