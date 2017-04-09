@@ -1,0 +1,7 @@
+Unser Paketname de.hsMannheim."Vorlesung"."Semester"."Grppe"."Übungsblatt" 
+erfüllt das Prinzip Domain-Namen mit den Namensbestandtteilen in umgekehrter
+Reihenfolge zu verwenden.
+Auch über mehrere Semester hinweg kommt es nicht zu Kollisionen mit anderen 
+Gruppen.
+Durch die Eindeutigkeit der Unterkategorien Vorlesung, Semester, Gruppe und
+Übungsblatt kommt es zu keinen Kollisionen.
