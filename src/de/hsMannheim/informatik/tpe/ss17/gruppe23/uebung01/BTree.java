@@ -14,6 +14,10 @@ public class BTree implements ADTBTree {
 	private BTreeNode root;
 	private int degree;
 
+	/**
+	 * Creates a new B-Tree with a specific degree.
+	 * @param degree degree of the B-Tree
+	 */
 	public BTree(int degree) {
 		if(degree <= 0) {
 			throw new GDIException("The order has to be positive.");
@@ -23,16 +27,20 @@ public class BTree implements ADTBTree {
 		}
 	}
 
-	/* TODO: remove
-	public BTreeNode getRoot(){
-		return this.root;
-	}
-	 */
 
+	/**
+	 * Returns the degree of the B-Tree.
+	 * @return degree of the tree.
+	 */
 	public int getOrder(){
 		return this.degree;
 	}
 
+	/**
+	 * Inserts an object in the B-Tree at the right position.
+	 * @param o Object to insert in the tree.
+	 * @return Returns if the process was successful.
+	 */
 	public boolean insert(Object o) {
 
 		if(o == null || contains(o)) {
@@ -46,7 +54,6 @@ public class BTree implements ADTBTree {
 		}
 		else {
 			// Tree is not empty
-			// 1. find leave
 			BTreeNode newRoot =  new BTreeNode(degree);
 			insertRecursive(o, root, newRoot);
 
@@ -59,6 +66,13 @@ public class BTree implements ADTBTree {
 		return true;
 	}
 
+	/**
+	 * Searches recursively for the right insertion node (leaf) and inserts the object.
+	 * If any node is over filled after the insertion, it bursts and splits up in two nodes.
+	 * @param o Object to insert in the tree.
+	 * @param currentNode Currently inspected node.
+	 * @param previousNode Parent node of the current node. A new node if the node has no parent (root).
+	 */
 	private void insertRecursive(Object o, BTreeNode currentNode, BTreeNode previousNode) {
 		if(currentNode.isLeaf()) {
 			currentNode.insert(o);
@@ -72,35 +86,66 @@ public class BTree implements ADTBTree {
 		}
 	}
 
-
+	
+	/**
+	 * Inserts an Integer object in the B-Tree.
+	 * @param o Integer to insert.
+	 * @return Returns if the insertion was successful.
+	 */
 	@Override
 	public boolean insert(Integer o) {
 		return insert((Object) o);
 	} 
 
 	@Override
-	public boolean insert(String filename) {
+	public boolean insert(String filename) { // TODO extract degree from file
 		if(!isFilePresent(filename)){
 			throw new GDIException("File not found.");
 		}
-
-		boolean success = true;
+		
+		int[] values = new int[0];
 		Object file = openInputFile(filename);
-		while(!isEndOfInputFile(file)){
-			if(!insert(readInt(file))) {
-				success = false;
+		while(!isEndOfInputFile(filename)) {
+			int val = readInt(file);
+			int[] copy = new int[values.length + 1];
+			for(int i = 0; i < values.length; i++) {
+				copy[i] = values[i];
 			}
+			copy[copy.length - 1] = val;
+			values = copy;
 		}
-
+		
 		closeInputFile(file);
-		return success;
+		
+		if(values.length <= 0) {
+			throw new GDIException("Invalid file format");
+		}
+		else {
+			boolean success = true;
+			for(int i = 0; i < values.length; i++) {
+				if(!insert(values[i])) {
+					success = false;
+				}
+			}
+			return success;
+		}
 	}
 
+	/**
+	 * Checks if a given Integer object is contained in the tree.
+	 * @param o Integer to search for in the tree.
+	 * @return Returns if the Integer is contained in the tree.
+	 */
 	@Override
 	public boolean contains(Integer o) {
 		return contains((Object)o);
 	}
 
+	/**
+	 * Checks if a given object is contained in the tree.
+	 * @param o Object to search for in the tree.
+	 * @return Returns if the Object is contained in the tree.
+	 */
 	public boolean contains(Object o) {
 		if(o == null) {
 			return false;
@@ -120,6 +165,10 @@ public class BTree implements ADTBTree {
 		return false;
 	}
 
+	/**
+	 * Returns the size of the tree.
+	 * @return Number of elements in the tree.
+	 */
 	@Override
 	public int size() {
 		if(root == null) {
@@ -130,6 +179,10 @@ public class BTree implements ADTBTree {
 		}
 	}
 
+	/**
+	 * Returns the height of the tree.
+	 * @return The length of the longest path in the tree (height).
+	 */
 	@Override
 	public int height() {
 		if(root == null) {
@@ -140,6 +193,12 @@ public class BTree implements ADTBTree {
 		}
 	}
 
+	/**
+	 * Recursively calculates the length of the path to the smallest number in the tree, stored in a leaf.
+	 * @param currentNode Currently inspected node.
+	 * @param currentHeight The length of the path between the root and the currentNode.
+	 * @return The height of the subtree with the current node as root.
+	 */
 	private int height(BTreeNode currentNode, int currentHeight) {
 		if(currentNode.isLeaf()) {
 			return currentHeight + 1;
@@ -149,6 +208,10 @@ public class BTree implements ADTBTree {
 		}
 	}
 
+	/**
+	 * Returns the largest value stored in the tree.
+	 * @return Integer object with the largest value.
+	 */
 	@Override
 	public Integer getMax() {
 		if(root == null) {
@@ -159,17 +222,10 @@ public class BTree implements ADTBTree {
 		}
 	}
 
-	/*
-	private Integer getMax(BTreeNode currentNode) {
-		if(currentNode.isLeave()) {
-			return (Integer)currentNode.getMax();
-		}
-		else {
-			return getMax(currentNode.getLargestChild());
-		}
-	}
-	*/
-
+	/**
+	 * Returns the smallest value stored in the tree.
+	 * @return Integer object with the smallest value.
+	 */
 	@Override
 	public Integer getMin() {
 		if(root == null) {
@@ -180,27 +236,28 @@ public class BTree implements ADTBTree {
 		}
 	}
 
-	/*
-	private Integer getMin(BTreeNode currentNode) {
-		if(currentNode.isLeave()) {
-			return (Integer)currentNode.getMin();
-		}
-		else {
-			return getMin(currentNode.getSmallestChild());
-		}
-	}
-	*/
-
+	/**
+	 * Returns if the tree is empty (contains no elements).
+	 * @return true if the tree is empty, false else.
+	 */
 	@Override
 	public boolean isEmpty() {
 		return root == null;
 	}
 
+	/**
+	 * Prints the tree inorder to the console.
+	 */
 	@Override
 	public void printInorder() {
 		println(toStringInorder(root));
 	}
 
+	/**
+	 * Recursively iterates over the elements of the tree and creates an inordered string.
+	 * @param node Current node to inspect.
+	 * @return A string with inordered subtree.
+	 */
 	private String toStringInorder(BTreeNode node) { // Recursive
 		if(node == null) {
 			return new String();
@@ -235,11 +292,19 @@ public class BTree implements ADTBTree {
 		}
 	}
 
+	/**
+	 * Prints the tree postorder to the console.
+	 */
 	@Override
 	public void printPostorder() {
 		println(toStringPostorder(root));
 	}
 
+	/**
+	 * Recursively iterates over the elements of the tree and creates a postorder string.
+	 * @param node Current node to inspect.
+	 * @return A sting with postorder subtree.
+	 */
 	private String toStringPostorder(BTreeNode node) { // Recursive
 		if(node == null) {
 			return "";
@@ -265,11 +330,19 @@ public class BTree implements ADTBTree {
 		}
 	}
 
+	/**
+	 * Prints the tree preorder to the console.
+	 */
 	@Override
 	public void printPreorder() {
 		println(toStringPreorder(root));
 	}
 
+	/**
+	 * Recursively iterates over the elements of the tree and creates a preorder string.
+	 * @param node Current node to inspect.
+	 * @return A sting with preorder subtree.
+	 */
 	private String toStringPreorder(BTreeNode node) { // Recursive
 		if(node == null) {
 			return "";
@@ -295,11 +368,18 @@ public class BTree implements ADTBTree {
 		}
 	}
 
+	/**
+	 * Prints the tree in levelorder to the console.
+	 */
 	@Override
 	public void printLevelorder() {
 		println(toStringLevelorder());
 	}
 
+	/**
+	 * Creates iteratively a sting with containing all nodes of the tree in levelorder.
+	 * @return A levelordered string of the tree.
+	 */
 	private String toStringLevelorder() {
 		String elements = "";
 		// TODO eigene ADT Queue
@@ -322,6 +402,10 @@ public class BTree implements ADTBTree {
 		return elements;
 	}
 
+	/**
+	 * Creates a deep copy of the B-Tree.
+	 * @return The deep copy of the tree.
+	 */
 	@Override
 	public BTree clone() {
 		BTree clone = new BTree(degree);
@@ -331,15 +415,26 @@ public class BTree implements ADTBTree {
 		return clone;
 	}
 
+	/**
+	 * Returns a string with a levelordered representation of the B-Tree.
+	 */
 	@Override
 	public String toString() {
 		return toStringLevelorder();
 	}
 
+	/**
+	 * Returns all values in the tree.
+	 * @return All values in the tree as an array.
+	 */
 	public Object[] values() {
 		return root.getAll();
 	}
 	
+	/**
+	 * Adds all values of the other Tree in the current Tree.
+	 * @param otherTree A reference to the tree with the values to insert.
+	 */
 	@Override
 	public void addAll(BTree otherTree) {
 		if(otherTree == null) {
@@ -387,7 +482,9 @@ public class BTree implements ADTBTree {
 		return newString;
 	}
 
-	
+	/**
+	 * Sketches the outline of the tree on the console in a graphical way to increase clarity.
+	 */
 	public void sketchElementsOnConsole() {
 		String levelorderElements = toStringLevelorder();
 

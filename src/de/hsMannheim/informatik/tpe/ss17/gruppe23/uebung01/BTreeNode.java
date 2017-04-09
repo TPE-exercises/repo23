@@ -109,18 +109,7 @@ public class BTreeNode {
 		}
 		
 		return null;
-		
-		/*for(int i = values.length - 1; i >= 0; i--) {
-			if(values[i] != null) {
-				return values[i];
-			}
-		}
-		return null;*/
 	}
-	
-	/*public BTreeNode getSmallestChild() {
-		return next[0];
-	}*/
 	
 	/**
 	 * Calculates the size (number of elements) at the subtree.
@@ -183,6 +172,10 @@ public class BTreeNode {
 		return all;
 	}
 	
+	/**
+	 * Recursively clones the node and it's subtree.
+	 * @return clone of the current node and subtree.
+	 */
 	public BTreeNode cloneDeep() {
 		BTreeNode clone = new BTreeNode(degree);
 		clone.values = this.values;
@@ -222,15 +215,6 @@ public class BTreeNode {
 		return next;
 	}
 	
-	/*public BTreeNode getLargestChild() {
-		for(int i = next.length - 1; i > 0; i--) {
-			if(next[i] != null) {
-				return next[i];
-			}
-		}
-		return null;
-	}*/
-	
 	/**
 	 * Checks whether an object is contained in the node.
 	 * @param obj Object to search for in the node.
@@ -244,38 +228,6 @@ public class BTreeNode {
 		}
 		return false;
 	}
-	
-	/*public Object getValue(int index) {
-		if(index < 0 || index >= values.length) {
-			throw new GDIException("Value index not found.");
-		}
-		
-		return values[index];
-	}
-	
-	public void setValue(int index, Object o) {
-		if(index < 0 || index >= values.length) {
-			throw new GDIException("Value index not found.");
-		}
-		
-		values[index] = o;
-	}
-	
-	public BTreeNode getNext(int index) {
-		if(index < 0 || index >= next.length) {
-			throw new GDIException("Next index not found.");
-		}
-		
-		return next[index];
-	}
-	
-	public void setNext(int index, BTreeNode o) {
-		if(index < 0 || index >= next.length) {
-			throw new GDIException("Next index not found.");
-		}
-		
-		next[index] = o;
-	}*/
 	
 	/**
 	 * Inserts an element at the right position in the node.
@@ -375,5 +327,52 @@ public class BTreeNode {
 		
 		//return middleElement;
 	}
+	
+	
+	// TODO: remove
+	/*public BTreeNode getSmallestChild() {
+		return next[0];
+	}*/
+	
+	/*public BTreeNode getLargestChild() {
+		for(int i = next.length - 1; i > 0; i--) {
+			if(next[i] != null) {
+				return next[i];
+			}
+		}
+		return null;
+	}*/
+	
+	/*public Object getValue(int index) {
+		if(index < 0 || index >= values.length) {
+			throw new GDIException("Value index not found.");
+		}
+	
+		return values[index];
+	}
+
+	public void setValue(int index, Object o) {
+		if(index < 0 || index >= values.length) {
+			throw new GDIException("Value index not found.");
+		}
+	
+		values[index] = o;
+	}
+
+	public BTreeNode getNext(int index) {
+		if(index < 0 || index >= next.length) {
+			throw new GDIException("Next index not found.");
+		}
+	
+		return next[index];
+	}
+
+	public void setNext(int index, BTreeNode o) {
+		if(index < 0 || index >= next.length) {
+			throw new GDIException("Next index not found.");
+		}
+	
+		next[index] = o;
+	}*/
 	
 }
