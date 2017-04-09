@@ -423,7 +423,9 @@ public class BTreeConsole {
 				insertIntoBTree(readInt()); break;
 			case 5: 
 				println("Which file do You wish to use?");
-				insertIntoBTree(getValuesFromFile(readLine())); break;
+				readline();
+				String file = readLine();	
+				insertIntoBTree(getValuesFromFile(file)); break;
 			case 6:
 				println("Which number are You searching for?");
 				if(bTreeList[currentBTree].contains(readInt())){
