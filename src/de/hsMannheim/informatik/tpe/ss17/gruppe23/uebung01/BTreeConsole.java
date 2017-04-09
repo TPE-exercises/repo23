@@ -303,27 +303,16 @@ public class BTreeConsole {
 		}
 	}
 	
-	//TODO
+	/*
 	private static void printingElementsLevelordered(String levelorderElements, int order){
-		//Assignment = Verknüpfung
 		int maxAssignments = 2 * order + 1;
-		//KICK: By printing the elements as an String have they one less assignment then in truth. 
-		//KICK: int maxInlineAssignments = maxAssignments - 1;
-		//KICK: int maxElements = 2 * order;
 		//Root is on step 1
 		int actualAmount = 1;
 		int actualAssignment = 0;
 		int maxAmount;
 		//actualAmount - 1 cause we need in for example amount 2 the maxAssignments in amount 1.
-		//KICK: int assignmentsInAmountX = powRecursivelyForBTrees(maxAssignments,actualAmount - 1);
-		//println(assignmentsInAmountX);
 		levelorderElements = removeLastSpaceCharacters(levelorderElements);
-//		int spaces = 0;
-//		for(int i = 0; i < levelorderElements.length(); i++){
-//			if((int)levelorderElements.charAt(i) == SPACECHARACTER){
-//				spaces++;
-//			}
-//		}
+		
 		//Getting the max amount
 		for(int i = 0; i < levelorderElements.length(); i++){
 			if((int)levelorderElements.charAt(i) == SPACECHARACTER && (int)levelorderElements.charAt(i + 1) == SPACECHARACTER){
@@ -398,7 +387,7 @@ public class BTreeConsole {
 		}
 		
 	}
-	//*/
+	*/
 
 	public static void main(String[] args) {
 		while(bTreeList.length == 0){
