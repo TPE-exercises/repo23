@@ -255,13 +255,11 @@ public class BTreeTest {
 	
 	@Test
 	public void cloneTest() {
-		BTree clone;
-		
 		for(int i = -10; i <= 10; i++) {
 			tree.insert(new Integer(i));
 		}
 		
-		clone = tree.clone();
+		BTree clone = tree.clone();
 		
 		//assertTrue(tree.equals(clone));
 		
@@ -271,11 +269,19 @@ public class BTreeTest {
 		assertEquals(tree.getMax(), clone.getMax());
 		assertEquals(tree.getMin(), clone.getMin());
 		
+		clone.insert(new Integer(100));
+		tree.insert(new Integer(200));
+		
 		for(int i = -10; i <= 10; i++) {
 			assertTrue(clone.contains(new Integer(i)));
 		}
 		assertFalse(clone.contains(new Integer(-20)));
 		assertFalse(clone.contains(new Integer(12)));
+
+		assertTrue(clone.contains(new Integer(100)));
+		assertFalse(clone.contains(new Integer(200)));
+		assertTrue(tree.contains(new Integer(200)));
+		assertFalse(tree.contains(new Integer(100)));
 	}
 	
 	@Test

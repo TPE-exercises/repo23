@@ -178,7 +178,11 @@ public class BTreeNode {
 	 */
 	public BTreeNode cloneDeep() {
 		BTreeNode clone = new BTreeNode(degree);
-		clone.values = this.values;
+		clone.values = new Object[this.values.length];
+		for(int i = 0; i < this.values.length; i++) {
+			clone.values[i] = this.values[i]; 
+		}
+		
 		for(int i = 0; i < next.length; i++) {
 			if(next[i] != null) {
 				clone.next[i] = next[i].cloneDeep();
@@ -327,52 +331,5 @@ public class BTreeNode {
 		
 		//return middleElement;
 	}
-	
-	
-	// TODO: remove
-	/*public BTreeNode getSmallestChild() {
-		return next[0];
-	}*/
-	
-	/*public BTreeNode getLargestChild() {
-		for(int i = next.length - 1; i > 0; i--) {
-			if(next[i] != null) {
-				return next[i];
-			}
-		}
-		return null;
-	}*/
-	
-	/*public Object getValue(int index) {
-		if(index < 0 || index >= values.length) {
-			throw new GDIException("Value index not found.");
-		}
-	
-		return values[index];
-	}
-
-	public void setValue(int index, Object o) {
-		if(index < 0 || index >= values.length) {
-			throw new GDIException("Value index not found.");
-		}
-	
-		values[index] = o;
-	}
-
-	public BTreeNode getNext(int index) {
-		if(index < 0 || index >= next.length) {
-			throw new GDIException("Next index not found.");
-		}
-	
-		return next[index];
-	}
-
-	public void setNext(int index, BTreeNode o) {
-		if(index < 0 || index >= next.length) {
-			throw new GDIException("Next index not found.");
-		}
-	
-		next[index] = o;
-	}*/
 	
 }

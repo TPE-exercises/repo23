@@ -412,7 +412,7 @@ public class BTreeConsole {
 				insertIntoBTree(readInt()); break;
 			case 5: 
 				println("Which file do You wish to use?");
-				readline();
+				readLine();
 				String file = readLine();	
 				insertIntoBTree(getValuesFromFile(file)); break;
 			case 6:
