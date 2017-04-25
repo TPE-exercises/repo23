@@ -5,3 +5,6 @@ Auch über mehrere Semester hinweg kommt es nicht zu Kollisionen mit anderen
 Gruppen.
 Durch die Eindeutigkeit der Unterkategorien Vorlesung, Semester, Gruppe und
 Übungsblatt kommt es zu keinen Kollisionen.
+
+
+Der Paketname sollte der URL (in umgekehrter Reihenfolge) "entsprechen": also de.hs-mannheim."fakultaet".<der Rest ist ok>
