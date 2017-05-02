@@ -66,15 +66,11 @@ public class EisdieleMain {
 			}
 			
 			println("Welches Eis möchten Sie bestellen?");
-			for(int j = 0; j < names.length; j++) {
-				print(names[j] + ": ");
-				for(int i = 0; i < eisdielen[j].getEissorten().length; i++) {
-					if(i > 0) {
-						print(", ");
-					}
-					print(eisdielen[j].getEissorten()[i]);
+			for(int i = 0; i < eisdielen[nr].getEissorten().length; i++){
+				if(i > 0) {
+					print(", ");
 				}
-				println();
+				print(eisdielen[nr].getEissorten()[i]);
 			}
 			
 			String choice = readLine();
