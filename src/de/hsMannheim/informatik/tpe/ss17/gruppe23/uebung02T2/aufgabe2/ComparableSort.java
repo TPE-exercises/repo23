@@ -6,6 +6,9 @@ import static gdi.MakeItSimple.*;
  * This class contains an implementation of the ShakerSort and the InsertionSort changed to
  * work with Comparable objects. The functionality is tested in the main method.
  *
+ * Gruppe 2-3:
+ * @author Joshua Joost(1626034)
+ * @author Max Granzow(1624770)
  */
 public class ComparableSort {
 

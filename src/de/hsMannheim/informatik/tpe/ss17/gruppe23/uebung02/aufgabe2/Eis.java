@@ -4,6 +4,10 @@ import static gdi.MakeItSimple.*;
 
 /**
  * This class contains an abstract implementation of an ice cream cup.
+ * 
+ * Gruppe 2-3:
+ * @author Joshua Joost(1626034)
+ * @author Max Granzow(1624770)
  */
 public abstract class Eis {
 

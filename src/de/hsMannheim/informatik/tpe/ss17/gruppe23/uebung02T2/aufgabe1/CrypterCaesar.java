@@ -4,6 +4,10 @@ package de.hsMannheim.informatik.tpe.ss17.gruppe23.uebung02T2.aufgabe1;
  * This class contains an implementation of the caesar encryption. It works by shifting
  * the letters in a message by a specific range. The range acts like the key and is used
  * to decrypt the cypher text.
+ * 
+ * Gruppe 2-3:
+ * @author Joshua Joost(1626034)
+ * @author Max Granzow(1624770)
  */
 public class CrypterCaesar implements Crypter {
 

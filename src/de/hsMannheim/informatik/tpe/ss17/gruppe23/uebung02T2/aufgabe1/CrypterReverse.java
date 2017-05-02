@@ -3,6 +3,10 @@ package de.hsMannheim.informatik.tpe.ss17.gruppe23.uebung02T2.aufgabe1;
 /**
  * This class contains an implementation of the reverse encryption. It works by changing the
  * order of the letters around.
+ * 
+ * Gruppe 2-3:
+ * @author Joshua Joost(1626034)
+ * @author Max Granzow(1624770)
  */
 public class CrypterReverse implements Crypter {
 
