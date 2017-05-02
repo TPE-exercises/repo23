@@ -5,8 +5,8 @@ import static gdi.MakeItSimple.*;
 public class BerlinerEisdiele extends Eisdiele {
 
 	public BerlinerEisdiele() {
-		addIceCreamToMenu("Spaghettieis", 8.00, "Becher", "Mannheimer Spaghettis",
-				new String[]{"Vanille"}, new String[]{"Sahne", "Erdbeersoße", "Kokosraspeln"});
+		addIceCreamToMenu("Spaghettieis", 8.00, "Becher", "Spaghettis",
+				new String[]{"Vanille"}, new String[]{"Erdbeersoße", "Kokosraspeln"});
 		addIceCreamToMenu("Berliner Burger", 14.00, "Schale", "Berge",
 				new String[]{"Schoko", "Pistazie", "Ergbeer", "Zitrone", "Nuss"}, new String[]{"Schokosoße", "Erdbeersoße"});
 		addIceCreamToMenu("Fruchtbecher", 10.00, "Becher", "Kugeln",

@@ -7,6 +7,26 @@ import static gdi.MakeItSimple.*;
  */
 public class EisdieleMain {
 	
+	
+	/*
+	 * Aufgabe 2:
+	 * Was muss hier geschehen? Brauchen Sie zusätzliche Klassen und Methoden? Wenn Ja - welche? Was muss in
+	 * Ihrer main() passieren um die jeweiligen lokalen Eisdielen anzusprechen? Müssen Sie bestehende Methoden
+	 * ändern oder verlagern? Notieren Sie die Vorteile dieser Lösung in Aufgabe 2 gegenüber der Lösung von
+	 * Aufgabe 1.
+	 * 
+	 * Nur die Methoden zur Interaktion mit dem Kunden müssen geändert werden, die Basis-Funktionalität wird
+	 * in der abstrakten Eisdiele hergestellt. Um aus den Unterklassen den Zugriff auf die Attribute der abstrakten
+	 * Klasse zu ermöglichen wurden getter-Methoden ergänzt. Die zusätzlichen Klassen Mannheimer-, Kölner- und
+	 * BerlinerEisdiele wurden angelegt. In der main() kann ganz normal auf die Elemente,
+	 * die in einer Variable vom statischen Typ Eisdiele gespeichert werden, zugegriffen werden. Um eine neue
+	 * Eisdiele anzulegen wird einfach ein Objekt einer konkreten lokalen Implementierung einer Eisdiele
+	 * gespeichert, wobei der Zugriff wie in der abstrakten Klasse definiert, einheitlich ist.
+	 * Der Vorteil dieser Lösung ist die einfache Erweiterbarkeit und die Vermeidung von Redundanz in wichtigen
+	 * Programmfunktionen, die gesammelt in den abstrakten Klassen stehen.
+	 */
+	
+	
 	private static String[] names = {"Mannheim", "Köln", "Berlin"};
 
 	/**
@@ -64,5 +84,6 @@ public class EisdieleMain {
 			
 		}
 	}
+	
 
 }
