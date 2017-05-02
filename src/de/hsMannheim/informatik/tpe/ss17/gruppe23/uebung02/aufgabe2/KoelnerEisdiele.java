@@ -34,7 +34,7 @@ public class KoelnerEisdiele extends Eisdiele {
 	}
 
 	@Override
-	public void verbschieden(boolean eisGekauft) {
+	public void verabschieden(boolean eisGekauft) {
 		print("Auf Wiedersehen in Köln!");
 		if(eisGekauft) {
 			println(" Und lassen Sie sich ihr Eis schmecken!");

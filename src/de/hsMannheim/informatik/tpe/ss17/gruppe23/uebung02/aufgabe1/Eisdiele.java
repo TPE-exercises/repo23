@@ -74,10 +74,19 @@ public class Eisdiele {
 		this.extras = newExtras;
 
 	}
+	
+	/**
+	 * Executes the process of buying a cup of ice cream.
+	 * @param typ Sort of the ordered ice cream.
+	 */
+	public void bestellen(String typ) {
+		bestellen(typ, 1);
+	}
 
 	/**
 	 * Executes the process of buying a cup of ice cream.
 	 * @param typ Sort of the ordered ice cream.
+	 * @param orders Number of orders, 1 for the first one.
 	 */
 	public void bestellen(String typ, int orders) {
 		if(orders == 1){
@@ -115,7 +124,7 @@ public class Eisdiele {
 			bestellen(orderIce, (orders + 1));
 		}
 		else{
-			verbschieden(eisVerfuegbar);
+			verabschieden(eisVerfuegbar);
 		}
 	}
 
@@ -139,7 +148,7 @@ public class Eisdiele {
 	/**
 	 * Says goodbye to the customer.
 	 */
-	public void verbschieden(boolean eisGekauft) {
+	public void verabschieden(boolean eisGekauft) {
 		print("Auf Wiedersehen!");
 		if(eisGekauft) {
 			println(" Und lassen Sie sich ihr Eis schmecken!");
@@ -151,10 +160,11 @@ public class Eisdiele {
 	 */
 	public void entschuldigen() {
 		println("Das gewünschte Eis ist leider nicht verfügbar. Versuchen Sie es doch mit einem anderen.");
+		
 		print("Im Angebot habe wir: ");
 		for(int i = 0; i < eissorten.length; i++){
 			print(eissorten[i]);
-			if(i != eissorten.length - 1 && i != eissorten.length - 2){
+			if(i < eissorten.length - 2){
 				print(", ");
 			}
 			else if(i == eissorten.length - 2){

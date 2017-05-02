@@ -91,7 +91,7 @@ public abstract class Eisdiele {
 			kassieren(eis.getPreis());
 		}
 		
-		verbschieden(eisVerfuegbar);
+		verabschieden(eisVerfuegbar);
 	}
 	
 	/**
@@ -200,7 +200,7 @@ public abstract class Eisdiele {
 	/**
 	 * Says goodbye to the customer.
 	 */
-	public abstract void verbschieden(boolean eisGekauft);
+	public abstract void verabschieden(boolean eisGekauft);
 	
 	/**
 	 * Says sorry to the customer for not having the desired sort of ice cream.

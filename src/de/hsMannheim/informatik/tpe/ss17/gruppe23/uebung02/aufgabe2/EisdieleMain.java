@@ -5,7 +5,7 @@ import static gdi.MakeItSimple.*;
 /**
  * This class contains a basic implementation of a user interface for the ice cream shops. It is possible to test the functionality.
  */
-public class EinsdieleMain {
+public class EisdieleMain {
 	
 	private static String[] names = {"Mannheim", "Köln", "Berlin"};
 
