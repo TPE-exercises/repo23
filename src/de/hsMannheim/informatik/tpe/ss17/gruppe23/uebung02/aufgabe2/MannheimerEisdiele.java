@@ -6,7 +6,7 @@ public class MannheimerEisdiele extends Eisdiele {
 	
 	public MannheimerEisdiele() {
 		addIceCreamToMenu("Spaghettieis", 4.00, "Becher", "Mannheimer Spaghettis",
-				new String[]{"Vanille"}, new String[]{"Sahne", "Erdbeersoße", "Kokosraspeln", "\"Monnemer Dreck\"});
+				new String[]{"Vanille"}, new String[]{"Sahne", "Erdbeersoße", "Kokosraspeln", "\"Monnemer Dreck\""});
 		addIceCreamToMenu("Bananasplit", 3.00, "Teller", "Kleckse",
 				new String[]{"Banane", "Vanille"}, new String[]{"Banane", "Keks"});
 		addIceCreamToMenu("Schokoteller", 6.00, "Teller", "Bällchen",
