@@ -60,7 +60,7 @@ public class EisdieleMain {
 			println();
 			int nr = readInt();
 			readLine();
-			if(nr < 0 || nr > 2) {
+			if(nr < 0 || nr > (names.length - 1)) {
 				println("Ungültige Eingabe!");
 				continue;
 			}
