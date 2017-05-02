@@ -151,7 +151,7 @@ public class Eisdiele {
 	public void verabschieden(boolean eisGekauft) {
 		print("Auf Wiedersehen!");
 		if(eisGekauft) {
-			println(" Und lassen Sie sich ihr Eis schmecken!");
+			println(" Und lassen Sie sich ihr Eis schmecken!\n\n");
 		}
 	}
 
@@ -177,6 +177,10 @@ public class Eisdiele {
 	public static void main(String[] args) {
 		Eisdiele diele = new Eisdiele();
 
-		diele.bestellen("Späg", 1);
+		diele.bestellen("Spaghettieis");
+		
+		diele.bestellen("Späg");
+		
+		
 	}
 }
