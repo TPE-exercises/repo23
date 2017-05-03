@@ -60,10 +60,10 @@ public class CrypterCaesar implements Crypter {
 				}
 				
 				curr += range;
-				while(curr <= 0) {
-					curr += 26;
-				}
-				curr = (char)(curr % 26);
+
+				curr += 26 * (Math.abs(shift) / 26 + 1);
+				
+				curr = (char)((curr % 26));
 				
 				if(uppercase) {
 					curr += 'A';

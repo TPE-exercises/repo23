@@ -2,14 +2,11 @@ package de.hsMannheim.informatik.tpe.ss17.gruppe23.uebung02.aufgabe2;
 
 import static gdi.MakeItSimple.*;
 
-/**
- * Gruppe 2-3:
- * @author Joshua Joost(1626034)
- * @author Max Granzow(1624770)
- */
-public class MannheimerEis extends Eis {
-	public MannheimerEis(String typ, double preis, String behaeltnis, String art, String[] sorten, String[] extras) {
-		super(typ, preis, behaeltnis, art, sorten, extras);
+public class MannheimerEiskaffee extends Eis {
+	
+	public MannheimerEiskaffee() {
+		super("Eiskaffee", 4.00, "Glas", "Kugeln",
+				new String[]{"Vanille"}, new String[]{"Kaffee", "Sahne"});
 	}
 	
 	/**
@@ -56,4 +53,5 @@ public class MannheimerEis extends Eis {
 		}
 		println(" dekorieren.");
 	}
+	
 }

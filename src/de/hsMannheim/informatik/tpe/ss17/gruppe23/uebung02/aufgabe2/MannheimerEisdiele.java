@@ -10,23 +10,29 @@ import static gdi.MakeItSimple.*;
 public class MannheimerEisdiele extends Eisdiele {
 	
 	public MannheimerEisdiele() {
-		addIceCreamToMenu("Spaghettieis", 4.00, "Becher", "Mannheimer Spaghettis",
-				new String[]{"Vanille"}, new String[]{"Sahne", "Erdbeersoße", "Kokosraspeln", "\"Monnemer Dreck\""});
-		addIceCreamToMenu("Bananasplit", 3.00, "Teller", "Kleckse",
-				new String[]{"Banane", "Vanille"}, new String[]{"Banane", "Keks"});
-		addIceCreamToMenu("Schokoteller", 6.00, "Teller", "Bällchen",
-				new String[]{"Schokolade", "Weisse Schokolade"}, new String[]{"Schokoladensoße", "Schokostreusel"});
-		addIceCreamToMenu("Eiskaffee", 4.00, "Glas", "Kugeln",
-				new String[]{"Vanille"}, new String[]{"Kaffee", "Sahne"});
+		addIceCreamToMenu("Spaghettieis");
+		addIceCreamToMenu("Bananasplit");
+		addIceCreamToMenu("Schokoteller");
+		addIceCreamToMenu("Eiskaffee");
 	}
 	
 	@Override
 	public Eis erstellen(String typ) {
-		if(!eisVerfuegbar(typ)) {
+		if(typ.equals("Spaghettieis")) {
+			return new MannheimerSpaghettieis();
+		}
+		else if(typ.equals("Bananasplit")) {
+			return new MannheimerBananasplit();
+		}
+		else if(typ.equals("Schokoteller")) {
+			return new MannheimerSchokoteller();
+		}
+		else if(typ.equals("Eiskaffee")) {
+			return new MannheimerEiskaffee();
+		}
+		else {
 			throw new GDIException("Eissorte unbekannt!");
 		}
-		
-		return new MannheimerEis(typ, getPreis(typ), getBehaeltnis(typ), getArt(typ), getSorten(typ), getExtras(typ));
 	}
 	
 	@Override

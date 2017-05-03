@@ -2,15 +2,11 @@ package de.hsMannheim.informatik.tpe.ss17.gruppe23.uebung02.aufgabe2;
 
 import static gdi.MakeItSimple.*;
 
-/**
- * Gruppe 2-3:
- * @author Joshua Joost(1626034)
- * @author Max Granzow(1624770)
- */
-public class KoelnerEis extends Eis {
+public class BerlinerSpaghettieis extends Eis {
 
-	public KoelnerEis(String typ, double preis, String behaeltnis, String art, String[] sorten, String[] extras) {
-		super(typ, preis, behaeltnis, art, sorten, extras);
+	public BerlinerSpaghettieis() {
+		super("Spaghettieis", 8.00, "Becher", "Spaghettis",
+				new String[]{"Vanille"}, new String[]{"Erdbeersoße", "Kokosraspeln"});
 	}
 	
 	/**
@@ -18,16 +14,16 @@ public class KoelnerEis extends Eis {
 	 */
 	@Override
 	public void vorbereiten() {
-		print("Kölsch: ");
+		print("Berlinerisch: ");
 		println(getBehaeltnis() + " nehmen.");
 	}
-	
+
 	/**
 	 * Fills the vessel with the specified sorts of ice cream.
 	 */
 	@Override
 	public void fuellen() {
-		print("Kölsch: ");
+		print("Berlinerisch: ");
 		print(getBehaeltnis() + " mit " + getArt() + " von ");
 		for(int i = 0; i < getSorten().length; i++) {
 			if(i > 0) {
@@ -43,7 +39,7 @@ public class KoelnerEis extends Eis {
 	 */
 	@Override
 	public void dekorieren() {
-		print("Kölsch: ");
+		print("Berlinerisch: ");
 		print("Das Eis mit");
 		if(getExtras().length == 0) {
 			print(" nichts");
@@ -57,5 +53,6 @@ public class KoelnerEis extends Eis {
 		}
 		println(" dekorieren.");
 	}
-	
+
+
 }

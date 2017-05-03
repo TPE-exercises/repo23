@@ -10,21 +10,25 @@ import static gdi.MakeItSimple.*;
 public class KoelnerEisdiele extends Eisdiele {
 
 	public KoelnerEisdiele() {
-		addIceCreamToMenu("Spaghettieis", 5.00, "Becher", "Kölner Spaghettis",
-				new String[]{"Vanille"}, new String[]{"Sahne", "Erdbeersoße"});
-		addIceCreamToMenu("Bananasplit", 6.00, "Bierteig-Waffeln", "Kleckse",
-				new String[]{"Banane", "Vanille"}, new String[]{"Banane", "Keks", "Schokoladen-Kokos-Soße"});
-		addIceCreamToMenu("Kinderteller", 3.00, "Teller", "Bällchen",
-				new String[]{"Erdbeer", "Zitrone"}, new String[]{"Waffel", "Bunte Soße"});
+		addIceCreamToMenu("Spaghettieis");
+		addIceCreamToMenu("Bananasplit");
+		addIceCreamToMenu("Kinderteller");
 	}
 	
 	@Override
 	public Eis erstellen(String typ) {
-		if(!eisVerfuegbar(typ)) {
+		if(typ.equals("Spaghettieis")) {
+			return new KoelnerSpaghettieis();
+		}
+		else if (typ.equals("Bananasplit")) {
+			return new KoelnerBananasplit();
+		}
+		else if(typ.equals("Kinderteller")) {
+			return new KoelnerKinderteller();
+		}
+		else {
 			throw new GDIException("Eissorte unbekannt!");
 		}
-		
-		return new KoelnerEis(typ, getPreis(typ), getBehaeltnis(typ), getArt(typ), getSorten(typ), getExtras(typ));
 	}
 	
 	@Override

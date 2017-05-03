@@ -2,15 +2,11 @@ package de.hsMannheim.informatik.tpe.ss17.gruppe23.uebung02.aufgabe2;
 
 import static gdi.MakeItSimple.*;
 
-/**
- * Gruppe 2-3:
- * @author Joshua Joost(1626034)
- * @author Max Granzow(1624770)
- */
-public class BerlinerEis extends Eis {
+public class KoelnerKinderteller extends Eis {
 
-	public BerlinerEis(String typ, double preis, String behaeltnis, String art, String[] sorten, String[] extras) {
-		super(typ, preis, behaeltnis, art, sorten, extras);
+	public KoelnerKinderteller() {
+		super("Kinderteller", 3.00, "Teller", "Bällchen",
+				new String[]{"Erdbeer", "Zitrone"}, new String[]{"Waffel", "Bunte Soße"});
 	}
 	
 	/**
@@ -18,7 +14,7 @@ public class BerlinerEis extends Eis {
 	 */
 	@Override
 	public void vorbereiten() {
-		print("Berlinerisch: ");
+		print("Kölsch: ");
 		println(getBehaeltnis() + " nehmen.");
 	}
 	
@@ -27,7 +23,7 @@ public class BerlinerEis extends Eis {
 	 */
 	@Override
 	public void fuellen() {
-		print("Berlinerisch: ");
+		print("Kölsch: ");
 		print(getBehaeltnis() + " mit " + getArt() + " von ");
 		for(int i = 0; i < getSorten().length; i++) {
 			if(i > 0) {
@@ -43,7 +39,7 @@ public class BerlinerEis extends Eis {
 	 */
 	@Override
 	public void dekorieren() {
-		print("Berlinerisch: ");
+		print("Kölsch: ");
 		print("Das Eis mit");
 		if(getExtras().length == 0) {
 			print(" nichts");

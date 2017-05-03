@@ -1,7 +1,5 @@
 package de.hsMannheim.informatik.tpe.ss17.gruppe23.uebung02.aufgabe2;
 
-import static gdi.MakeItSimple.*;
-
 /**
  * This class contains an abstract implementation of an ice cream cup.
  * 
