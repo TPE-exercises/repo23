@@ -11,6 +11,11 @@ public class CaesarWriter extends FilterWriter {
 //							   'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
 //							   'Ä', 'Ö', 'Ü', 'ä', 'ö', 'ü'};
 	
+	/**
+	 * Creates a new FilterWriter that encrypts the input stream.
+	 * @param out The output that should be encrypted.
+	 * @param shift Specifies how often a character is moved. Acts like the encryption key.
+	 */
 	public CaesarWriter(Writer out, int shift) {
 		super(out);
 		this.shift = shift;
@@ -39,11 +44,21 @@ public class CaesarWriter extends FilterWriter {
 		alphabet[counter++] = 'ü';
 	}
 	
+	/**
+	 * Writes a single encrypted character to the output stream.
+	 * @param c The character to write.
+	 */
 	@Override
 	public void write(int c) throws IOException {
 		super.write(encrypt((char)c));
 	}
 	
+	/**
+	 * Writes values of a char array, starting on index off and writing len elements.
+	 * @param cbuf Char array containing the elements to write.
+	 * @param off The start index.
+	 * @param len The number of characters to write.
+	 */
 	@Override
 	public void write(char[] cbuf, int off, int len) throws IOException {
 		for(int i = 0; i < len; ++i) {
@@ -51,11 +66,22 @@ public class CaesarWriter extends FilterWriter {
 		}
 	}
 	
+	/**
+	 * Writes characters of a string, starting at index off, writing len elements.
+	 * @param str The string to write.
+	 * @param off The start index.
+	 * @len The number of characters to write.
+	 */
 	@Override
 	public void write(String str, int off, int len) throws IOException {
 		write(str.toCharArray(), off, len);
 	}
 	
+	/**
+	 * Encrypts a char with the caesar encryption method.
+	 * @param message The char to encrypt.
+	 * @return The encrypted char.
+	 */
 	private char encrypt(char message) {
 		for(int i = 0; i < alphabet.length; i++) {
 			if(alphabet[i] == message) {
@@ -71,9 +97,14 @@ public class CaesarWriter extends FilterWriter {
 			}
 		}
 		
-		return message;
+		return message; // special characters don't get encrypted
 	}
 	
+	/**
+	 * A simple test method for the caesar writer.
+	 * A file named test.txt is created or overwritten with an encrypted dummy text.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		try {
 			PrintWriter c = new PrintWriter(new CaesarWriter(new FileWriter("test.txt"), 3));

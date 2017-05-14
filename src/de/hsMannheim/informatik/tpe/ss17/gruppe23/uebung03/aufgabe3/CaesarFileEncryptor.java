@@ -3,6 +3,7 @@ package de.hsMannheim.informatik.tpe.ss17.gruppe23.uebung03.aufgabe3;
 import java.io.*;
 
 import de.hsMannheim.informatik.tpe.ss17.gruppe23.uebung03.aufgabe2.CaesarWriter;
+import de.hsMannheim.informatik.tpe.ss17.gruppe23.uebung03.aufgabe2.CaesarReader;
 
 public class CaesarFileEncryptor implements IFileEncrypter {
 
@@ -16,7 +17,7 @@ public class CaesarFileEncryptor implements IFileEncrypter {
 	@Override
 	public File encrypt(File sourceDirectory) throws IOException {
 		if(!sourceDirectory.exists() || !sourceDirectory.isDirectory()) {
-			throw new FileNotFoundException("File not found.");
+			throw new FileNotFoundException("Directory not found.");
 		}
 		
 		File parent = sourceDirectory.getParentFile();
@@ -52,7 +53,7 @@ public class CaesarFileEncryptor implements IFileEncrypter {
 	}
 	
 	private void createEncryptedDirectory(File folder, String targetPath) throws IOException {
-		File newFolder = new File(targetPath + "\\" + folder.getName());
+		File newFolder = new File(targetPath + File.separator + folder.getName());
 		newFolder.mkdir();
 		
 		File[] subFolders = folder.listFiles();
@@ -68,12 +69,19 @@ public class CaesarFileEncryptor implements IFileEncrypter {
 	}
 	
 	private void createEncryptedFile(File file, String targetPath) throws IOException {
-		File newFile = new File(targetPath + "\\" + file.getName());
+		String[] parts = file.getName().split("\\.");
+		if(parts.length > 0 && !parts[parts.length - 1].equals("txt")) {
+			copyFile(file, targetPath);
+			return;
+		}
+		
+		File newFile = new File(targetPath + File.separator + file.getName());
 		newFile.createNewFile();
 		
-		PrintWriter writer = new PrintWriter(new CaesarWriter(new FileWriter(newFile), shift));
-		
-		InputStreamReader reader = new InputStreamReader(new FileInputStream(file.getAbsolutePath()));
+		PrintWriter writer = new PrintWriter(new BufferedWriter(new CaesarWriter(new FileWriter(newFile), shift)));
+
+//		InputStreamReader reader = new InputStreamReader(new FileInputStream(file.getAbsolutePath()));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file.getAbsolutePath())));
 		
 		while ( reader.ready() ) {
 			writer.write((char)reader.read());
@@ -82,11 +90,30 @@ public class CaesarFileEncryptor implements IFileEncrypter {
 		reader.close();
 		writer.close();
 	}
+	
+	private void copyFile(File file, String targetPath) throws IOException {
+		File newFile = new File(targetPath + File.separator + file.getName());
+		newFile.createNewFile();
+		
+		BufferedOutputStream output = new BufferedOutputStream(new FileOutputStream(newFile));
+		
+		BufferedInputStream input = new BufferedInputStream(new FileInputStream(file));
+		
+		while ( input.available() > 0) {
+			output.write(input.read());
+		}
+		output.flush();
+		
+		input.close();
+		output.close();
+	}
+	
+	
 
 	@Override
 	public File decrypt(File sourceDirectory) throws IOException {
 		if(!sourceDirectory.exists() || !sourceDirectory.isDirectory()) {
-			throw new FileNotFoundException("File not found.");
+			throw new FileNotFoundException("Directory not found.");
 		}
 		
 		File parent = sourceDirectory.getParentFile();
@@ -95,7 +122,7 @@ public class CaesarFileEncryptor implements IFileEncrypter {
 			throw new IOException("No parent directory available.");
 		}
 		
-		String newFolderPath = parent.getAbsolutePath() + "\\" + sourceDirectory.getName() + "_decrypted";
+		String newFolderPath = parent.getAbsolutePath() + File.separator + sourceDirectory.getName() + "_decrypted";
 		int counter = 0;
 		File newFolder = new File(newFolderPath);
 		while(newFolder.exists()) {
@@ -103,7 +130,7 @@ public class CaesarFileEncryptor implements IFileEncrypter {
 			newFolder = new File(newFolderPath + "(" + counter + ")");
 		}
 		
-		if(!newFolder.mkdirs()) {
+		if(!newFolder.mkdir()) {
 			throw new IOException("UnableToCreateFile.");
 		}
 		
@@ -111,19 +138,63 @@ public class CaesarFileEncryptor implements IFileEncrypter {
 		
 		for(File currentFile : subFolders) {
 			if(currentFile.isDirectory()) {
-				createEncryptedDirectory(currentFile, newFolder.getAbsolutePath());
+				createDecryptedDirectory(currentFile, newFolder.getAbsolutePath());
 			}
 			else {
-				createEncryptedFile(currentFile, newFolder.getAbsolutePath());
+				createDecryptedFile(currentFile, newFolder.getAbsolutePath());
 			}
 		}
 		
 		return newFolder;
 	}
 	
+	private void createDecryptedDirectory(File folder, String targetPath) throws IOException {
+		File newFolder = new File(targetPath + File.separator + folder.getName());
+		newFolder.mkdir();
+		
+		File[] subFolders = folder.listFiles();
+		
+		for(File currentFile : subFolders) {
+			if(currentFile.isDirectory()) {
+				createDecryptedDirectory(currentFile, newFolder.getAbsolutePath());
+			}
+			else {
+				createDecryptedFile(currentFile, newFolder.getAbsolutePath());
+			}
+		}
+	}
+	
+	private void createDecryptedFile(File file, String targetPath) throws IOException {
+		String[] parts = file.getName().split("\\.");
+		if(parts.length > 0 && !parts[parts.length - 1].equals("txt")) {
+			copyFile(file, targetPath);
+			return;
+		}
+		
+		File newFile = new File(targetPath + File.separator + file.getName());
+		newFile.createNewFile();
+		
+//		PrintWriter writer1 = new PrintWriter(new BufferedWriter(new CaesarWriter(new FileWriter(newFile), shift)));
+//		BufferedReader reader1 = new BufferedReader(new InputStreamReader(new FileInputStream(file.getAbsolutePsath())));
+		
+		
+		PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(newFile)));
+		
+//		BufferedReader reader = new BufferedReader(new FileReader(file));
+		BufferedReader reader = new BufferedReader(new CaesarReader(new FileReader(file), shift));
+//		DataInputStream stream = new DataInputStream(new BufferedReader(new CaesarReader(new FileReader(file), shift)));
+		writer.println("Entschlüsselt:");
+		while ( reader.ready() ) {
+			String read = reader.readLine();
+			System.out.print(read);
+			writer.println(read);
+		}
+		
+		reader.close();
+		writer.close();
+	}
 	
 	public static void main(String[] args) {
-		// TODO
 		// Pfad zu Ordner einlesen
 		String path = "";
 		System.out.println("Geben Sie den Namen des Verzeichnisses an:");
@@ -189,7 +260,6 @@ public class CaesarFileEncryptor implements IFileEncrypter {
 		// Ver- / Entschlüsseln
 		System.out.println("Gefundene Dateien:");
 		File folder = new File(path);
-		File[] fileArray = folder.listFiles();
 		System.out.println();
 		
 		if(!folder.exists() || !folder.isDirectory()) {
@@ -199,30 +269,21 @@ public class CaesarFileEncryptor implements IFileEncrypter {
 		
 		printFiles(folder);
 		
-		CaesarFileEncryptor c;
-		if(encrypt) {
-			c = new CaesarFileEncryptor(key);
-			try {
+		CaesarFileEncryptor c = new CaesarFileEncryptor(key);
+		try {
+			if(encrypt) {
 				c.encrypt(folder);
-				System.out.println("Erfolgreich verschlüsselt.");
-			} catch (IOException e) {
-				System.out.println();
-				System.out.println("Something went wrong when encrypting.");
-				System.out.println(e.getMessage());
-				e.printStackTrace();
 			}
-		}
-		else {
-			c = new CaesarFileEncryptor(-key);
-			try {
+			else {
 				c.decrypt(folder);
-				System.out.println("Erfolgreich entschlüsselt.");
-			} catch (IOException e) {
-				System.out.println();
-				System.out.println("Something went wrong when decrypting.");
-				System.out.println(e.getMessage());
-				e.printStackTrace();
 			}
+			System.out.println("Erfolgreich entschlüsselt.");
+		}
+		catch(IOException e) {
+			System.out.println();
+			System.out.println("Something went wrong when encrypting.");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 	
