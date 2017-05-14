@@ -1,18 +1,32 @@
 package de.hsMannheim.informatik.tpe.ss17.gruppe23.uebung03.myutil;
 
+/**
+ * Gruppe 2-3:
+ * @author Max Granzow(1624770)
+ * @author Joshua Joost(1626034)
+ */
 public class QueueArray implements Queue {
-
-	private static final int STANDARD_PUFFER = 5;
 	
 	private Object elements[];
 	private int start = 0, end = 0;
 	int size;
 	
+	/**
+	 * Creates a new Queue using an array to store the elements with a standard size.
+	 */
 	public QueueArray() {
 		this(STANDARD_PUFFER);
 	}
 	
+	/**
+	 * Creates a new queue using an array to store the elements with a specific size.
+	 * @param size size of the queue.
+	 */
 	public QueueArray(int size) {
+		if(size < 1) {
+			throw new IllegalArgumentException();
+		}
+		
 		elements = new Object[size + 1];
 		this.size = size;
 	}

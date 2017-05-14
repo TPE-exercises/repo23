@@ -1,7 +1,6 @@
 package de.hsMannheim.informatik.tpe.ss17.gruppe23.uebung03.aufgabe3;
 
 import java.io.*;
-
 import de.hsMannheim.informatik.tpe.ss17.gruppe23.uebung03.aufgabe2.CaesarWriter;
 import de.hsMannheim.informatik.tpe.ss17.gruppe23.uebung03.aufgabe2.CaesarReader;
 
@@ -9,11 +8,21 @@ public class CaesarFileEncryptor implements IFileEncrypter {
 
 	private int shift;
 	
+	/**
+	 * Creates a new CaesarFileEncryptor to access the CaesarReader and -Writer functionality.
+	 * @param shift The number of characters the letters should be shifted.
+	 */
 	public CaesarFileEncryptor(int shift) {
 		this.shift = shift;
 	}
 	
 	
+	/**
+	 * Encrypts a whole directory (with all included text files) and returns the encrypted directory.
+	 * @param sourceDirectory The directory to encrypt.
+	 * @return The new folder containing the encrypted files.
+	 * @throws IOException Throws IOException if the access to the file system is not properly possible.
+	 */
 	@Override
 	public File encrypt(File sourceDirectory) throws IOException {
 		if(!sourceDirectory.exists() || !sourceDirectory.isDirectory()) {
@@ -52,6 +61,11 @@ public class CaesarFileEncryptor implements IFileEncrypter {
 		return newFolder;
 	}
 	
+	/**
+	 * Creates a new folder in the target directory and fills it with an encrypted version of the files in this directory.
+	 * @param folder The folder to copy and encrypt.
+	 * @param targetPath The target directory for the new folder.
+	 */
 	private void createEncryptedDirectory(File folder, String targetPath) throws IOException {
 		File newFolder = new File(targetPath + File.separator + folder.getName());
 		newFolder.mkdir();
@@ -68,6 +82,11 @@ public class CaesarFileEncryptor implements IFileEncrypter {
 		}
 	}
 	
+	/**
+	 * Creates a new encrypted file in the corresponding encrypted folder.
+	 * @param file The file to encrypt.
+	 * @param targetPath The target path to the encrypted file.
+	 */
 	private void createEncryptedFile(File file, String targetPath) throws IOException {
 		String[] parts = file.getName().split("\\.");
 		if(parts.length > 0 && !parts[parts.length - 1].equals("txt")) {
@@ -79,8 +98,6 @@ public class CaesarFileEncryptor implements IFileEncrypter {
 		newFile.createNewFile();
 		
 		PrintWriter writer = new PrintWriter(new BufferedWriter(new CaesarWriter(new FileWriter(newFile), shift)));
-
-//		InputStreamReader reader = new InputStreamReader(new FileInputStream(file.getAbsolutePath()));
 		BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file.getAbsolutePath())));
 		
 		while ( reader.ready() ) {
@@ -91,6 +108,11 @@ public class CaesarFileEncryptor implements IFileEncrypter {
 		writer.close();
 	}
 	
+	/**
+	 * Copies a file to a new folder.
+	 * @param file The file to copy.
+	 * @param targetPath The target file path (for the copy).
+	 */
 	private void copyFile(File file, String targetPath) throws IOException {
 		File newFile = new File(targetPath + File.separator + file.getName());
 		newFile.createNewFile();
@@ -109,7 +131,12 @@ public class CaesarFileEncryptor implements IFileEncrypter {
 	}
 	
 	
-
+	/**
+	 * Decrypts a whole encrypted directory, considering only text files.
+	 * @param sourceDirectory The directory to decrypt.
+	 * @return The new decrypted folder.
+	 * @throws IOException Throws IOException if the access to the file system is not properly possible.
+	 */
 	@Override
 	public File decrypt(File sourceDirectory) throws IOException {
 		if(!sourceDirectory.exists() || !sourceDirectory.isDirectory()) {
@@ -148,6 +175,11 @@ public class CaesarFileEncryptor implements IFileEncrypter {
 		return newFolder;
 	}
 	
+	/**
+	 * Creates a new folder in the target directory and fills it with an decrypted version of the files in this directory.
+	 * @param folder The folder to copy and decrypt.
+	 * @param targetPath The target directory for the new folder.
+	 */
 	private void createDecryptedDirectory(File folder, String targetPath) throws IOException {
 		File newFolder = new File(targetPath + File.separator + folder.getName());
 		newFolder.mkdir();
@@ -164,6 +196,11 @@ public class CaesarFileEncryptor implements IFileEncrypter {
 		}
 	}
 	
+	/**
+	 * Creates a new decrypted file in the corresponding decrypted folder.
+	 * @param file The file to decrypt.
+	 * @param targetPath The target path to the decrypted file.
+	 */
 	private void createDecryptedFile(File file, String targetPath) throws IOException {
 		String[] parts = file.getName().split("\\.");
 		if(parts.length > 0 && !parts[parts.length - 1].equals("txt")) {
@@ -174,36 +211,46 @@ public class CaesarFileEncryptor implements IFileEncrypter {
 		File newFile = new File(targetPath + File.separator + file.getName());
 		newFile.createNewFile();
 		
-//		PrintWriter writer1 = new PrintWriter(new BufferedWriter(new CaesarWriter(new FileWriter(newFile), shift)));
-//		BufferedReader reader1 = new BufferedReader(new InputStreamReader(new FileInputStream(file.getAbsolutePsath())));
-		
-		
 		PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(newFile)));
+		CaesarReader reader = new CaesarReader(new FileReader(file), shift);
 		
-//		BufferedReader reader = new BufferedReader(new FileReader(file));
-		BufferedReader reader = new BufferedReader(new CaesarReader(new FileReader(file), shift));
-//		DataInputStream stream = new DataInputStream(new BufferedReader(new CaesarReader(new FileReader(file), shift)));
-		writer.println("Entschlüsselt:");
 		while ( reader.ready() ) {
-			String read = reader.readLine();
-			System.out.print(read);
-			writer.println(read);
+			writer.print((char)reader.read());
 		}
 		
 		reader.close();
 		writer.close();
 	}
 	
+	/**
+	 * Prints the menu to de-/encrypt a folder to the console.
+	 */
 	public static void main(String[] args) {
+		// Main menu
+		System.out.println("CAESAR-ENCRYPTOR");
+		System.out.println("");
+		
 		// Pfad zu Ordner einlesen
 		String path = "";
 		System.out.println("Geben Sie den Namen des Verzeichnisses an:");
-		try{
-			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-			path = br.readLine(); 
-		}
-		catch(IOException e) {
-			System.out.println("Eingabe fehlgeschlagen.");
+		
+		boolean validPath = false;
+		while(!validPath) {
+			
+			try{
+				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+				path = br.readLine(); 
+			}
+			catch(IOException e) {
+				System.out.println("Eingabe fehlgeschlagen.");
+			}
+			
+			if(new File(path).exists()) {
+				validPath = true;
+			}
+			else {
+				System.out.println("Der angegebene Pfad ist ungültig. Versuchen Sie es erneut.");
+			}
 		}
 		
 		// Ver- / Entschlüsseln eingeben
@@ -254,8 +301,6 @@ public class CaesarFileEncryptor implements IFileEncrypter {
 			}
 		}
 		
-		//shift = key;
-		
 		
 		// Ver- / Entschlüsseln
 		System.out.println("Gefundene Dateien:");
@@ -269,24 +314,32 @@ public class CaesarFileEncryptor implements IFileEncrypter {
 		
 		printFiles(folder);
 		
+		System.out.println();
+		System.out.println("Die Dateien werden verarbeitet. Bitte haben Sie einen Moment Geduld.");
+		
 		CaesarFileEncryptor c = new CaesarFileEncryptor(key);
 		try {
 			if(encrypt) {
 				c.encrypt(folder);
+				System.out.println("Erfolgreich verschlüsselt.");
 			}
 			else {
 				c.decrypt(folder);
+				System.out.println("Erfolgreich entschlüsselt.");
 			}
-			System.out.println("Erfolgreich entschlüsselt.");
 		}
 		catch(IOException e) {
 			System.out.println();
-			System.out.println("Something went wrong when encrypting.");
+			System.out.println("Beim Verarbeiten der Dateien ist ein Fehler aufgetreten.");
 			System.out.println(e.getMessage());
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 	}
 	
+	/**
+	 * Prints all file names in a directory and it's sub-directories.
+	 * @param folder the folder containing the files to print.
+	 */
 	private static void printFiles(File folder) {
 		if(folder == null) {
 			return;

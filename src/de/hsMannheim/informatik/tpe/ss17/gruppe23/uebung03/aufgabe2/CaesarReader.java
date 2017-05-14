@@ -110,13 +110,12 @@ public class CaesarReader extends FilterReader {
 	 */
 	public static void main(String[] args) {
 		try {
-			BufferedReader c = new BufferedReader(new CaesarReader(new FileReader("test.txt"), 3));
-//			CaesarReader c = new CaesarReader(new FileReader("test.txt"), 3);
-			String i = c.readLine();
-			while(i != null) {
-				System.out.println(i);
+			CaesarReader c = new CaesarReader(new FileReader("test.txt"), 3);
+			int i = c.read();
+			while(i != -1) {
+				System.out.print((char)i);
 				
-				i = c.readLine();
+				i = c.read();
 			}
 			
 			c.close();

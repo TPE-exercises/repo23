@@ -1,5 +1,10 @@
 package de.hsMannheim.informatik.tpe.ss17.gruppe23.uebung03.myutil;
 
+/**
+ * Gruppe 2-3:
+ * @author Max Granzow(1624770)
+ * @author Joshua Joost(1626034)
+ */
 public class QueueLinkedList implements Queue {
 
 	private static final int STANDARD_PUFFER = 5;
@@ -7,11 +12,22 @@ public class QueueLinkedList implements Queue {
 	private LinkedList elements = null;
 	private int startSize, size;
 	
+	/**
+	 * Creates a new queue, using a linked list to store it's values, with a standard size.
+	 */
 	public QueueLinkedList() {
 		this(STANDARD_PUFFER);
 	}
 	
+	/**
+	 * Creates a new queue, using a linked list to store it's values, with a specific size.
+	 * @param size size of the queue.
+	 */
 	public QueueLinkedList(int size) {
+		if(size < 1) {
+			throw new IllegalArgumentException();
+		}
+		
 		elements = new LinkedList();
 		this.startSize = size;
 		this.size = size;

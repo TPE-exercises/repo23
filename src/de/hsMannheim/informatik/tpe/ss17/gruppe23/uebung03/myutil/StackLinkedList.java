@@ -1,5 +1,10 @@
 package de.hsMannheim.informatik.tpe.ss17.gruppe23.uebung03.myutil;
 
+/**
+ * Gruppe 2-3:
+ * @author Max Granzow(1624770)
+ * @author Joshua Joost(1626034)
+ */
 public class StackLinkedList implements Stack {
 	
 	private static final int STANDARD_PUFFER = 5;
@@ -12,6 +17,10 @@ public class StackLinkedList implements Stack {
 	}
 	
 	public StackLinkedList(int size) {
+		if(size < 1) {
+			throw new IllegalArgumentException();
+		}
+		
 		elements = new LinkedList();
 		this.startSize = size;
 		this.size = size;
