@@ -78,7 +78,7 @@ public class Console extends ConsoleInstructions{
 				availableQueueArray = newAvailableQueueArray;
 				usingActualQueue = true;
 				usingActualLinkedListVersion = false;
-				index = availableQueueArray.length + 1;
+				index = availableQueueArray.length - 1;
 			}
 			else if(whichADT.equals("QueueLinkedList")){
 				QueueLinkedList[] newAvailableQueueLinkedList = new QueueLinkedList[availableQueueLinkedList.length + 1];
@@ -89,7 +89,7 @@ public class Console extends ConsoleInstructions{
 				availableQueueLinkedList = newAvailableQueueLinkedList;
 				usingActualQueue = true;
 				usingActualLinkedListVersion = true;
-				index = availableQueueLinkedList.length + 1;
+				index = availableQueueLinkedList.length - 1;
 			}
 			else if(whichADT.equals("StackArray")){
 				StackArray[] newAvailableStackArray = new StackArray[availableStackArray.length + 1];
@@ -100,7 +100,7 @@ public class Console extends ConsoleInstructions{
 				availableStackArray = newAvailableStackArray;
 				usingActualQueue = false;
 				usingActualLinkedListVersion = false;
-				index = availableStackArray.length + 1;
+				index = availableStackArray.length - 1;
 			}
 			else if(whichADT.equals("StackLinkedList")){
 				StackLinkedList[] newAvailableStackLinkedList = new StackLinkedList[availableStackLinkedList.length + 1];
@@ -111,7 +111,7 @@ public class Console extends ConsoleInstructions{
 				availableStackLinkedList = newAvailableStackLinkedList;
 				usingActualQueue = false;
 				usingActualLinkedListVersion = true;
-				index = availableStackLinkedList.length + 1;
+				index = availableStackLinkedList.length - 1;
 			}
 			else{
 				println("ADT cannot include into list <" + whichADT + ">.");
