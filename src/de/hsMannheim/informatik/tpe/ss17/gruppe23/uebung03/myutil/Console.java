@@ -35,10 +35,10 @@ public class Console extends ConsoleInstructions{
 	private static void printAvailableStacksAndQueues(boolean showAvailableQueueArray, boolean showAvailableQueueLinkedList, boolean showAvailableStackArray, boolean showAvailableStackLinkedList){
 		if(availableQueueArray == null && availableQueueLinkedList == null && 
 				availableStackArray == null && availableStackLinkedList == null){
-			println("There is actual whether an Stack nor an Queue created.");
+			println("There is currently whether a Stack nor a Queue created.");
 		}
 		else{
-			println("There are actual created:");
+			println("There are currently created:");
 			if(showAvailableQueueArray && availableQueueArray != null){
 				println(availableQueueArray.length + " QueueArrays");
 			}
@@ -239,7 +239,7 @@ public class Console extends ConsoleInstructions{
 
 			if(!(availableQueueArray == null && availableQueueLinkedList == null && 
 					availableStackArray == null && availableStackLinkedList == null)){	
-				print("Working actual with: <");
+				print("Working currently with: <");
 				if(usingActualQueue && usingActualLinkedListVersion){
 					print("QueueLinkedList");
 				}
@@ -252,7 +252,7 @@ public class Console extends ConsoleInstructions{
 				else if(!usingActualQueue && !usingActualLinkedListVersion){
 					print("StackArray");
 				}
-				print(" No. " + index + ">");
+				print(" No. " + (index + 1) + ">");
 				println("");
 
 				if(usingActualQueue){
@@ -264,6 +264,7 @@ public class Console extends ConsoleInstructions{
 					switch(input){
 					case 1: 
 						println("Which you want to enter?");
+						readLine();
 						Object toEnter = readLine();
 						if(usingActualLinkedListVersion){
 							try{
@@ -359,6 +360,7 @@ public class Console extends ConsoleInstructions{
 					switch(input){
 					case 1: 
 						println("Which you want to push?");
+						readLine();
 						Object toEnter = readLine();
 						if(usingActualLinkedListVersion){
 							try{
