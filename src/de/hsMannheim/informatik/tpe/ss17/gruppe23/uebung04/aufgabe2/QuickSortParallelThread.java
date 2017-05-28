@@ -89,14 +89,11 @@ public class QuickSortParallelThread extends Thread {
 		for(int pointer = lowerBorder; pointer < upperBorder; pointer++) {
 			comparisons++;
 			
-//			synchronized (array) {
-//				if(array[pointer] <= array[pivot]) {
-				if(array[pointer].compareTo(array[pivot]) <= 0) { // <=
-					if(index != pointer) {
-						swap(array, index, pointer);
-					}
-					index++;
-//				}
+			if(array[pointer].compareTo(array[pivot]) <= 0) { // <=
+				if(index != pointer) {
+					swap(array, index, pointer);
+				}
+				index++;
 			}
 		}
 		
@@ -111,12 +108,12 @@ public class QuickSortParallelThread extends Thread {
 	 * Swaps the elements in the series of numbers at the passed indices.
 	 */
 	private void swap(Comparable[] array, int index1, int index2) {
-//		synchronized (array) {
+		synchronized (array) {
 			swaps++;
 			Comparable tmp = array[index1];
 			array[index1] = array[index2];
 			array[index2] = tmp;
-//		}
+		}
 	}
 	
 }
