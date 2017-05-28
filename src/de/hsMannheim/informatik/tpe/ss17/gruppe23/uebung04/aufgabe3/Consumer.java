@@ -5,6 +5,9 @@ package de.hsMannheim.informatik.tpe.ss17.gruppe23.uebung04.aufgabe3;
  * ring buffer and writes it to the console. If there is no element in the
  * ring buffer, the thread waits for new values.
  * 
+ * Gruppe 2-3:
+ * @author Max Granzow(1624770)
+ * @author Joshua Joost(1626034)
  */
 public class Consumer extends Thread {
 	

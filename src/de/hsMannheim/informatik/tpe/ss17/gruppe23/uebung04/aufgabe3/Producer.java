@@ -7,6 +7,9 @@ import java.util.Random;
  * ring buffer. If the ring buffer is full, the producer waits until there
  * is another free space in the ring buffer.
  *
+ * Gruppe 2-3:
+ * @author Max Granzow(1624770)
+ * @author Joshua Joost(1626034)
  */
 public class Producer extends Thread {
 	

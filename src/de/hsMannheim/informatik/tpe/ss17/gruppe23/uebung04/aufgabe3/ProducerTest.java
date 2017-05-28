@@ -5,6 +5,11 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Gruppe 2-3:
+ * @author Max Granzow(1624770)
+ * @author Joshua Joost(1626034)
+ */
 public class ProducerTest {
 	
 	public static final int seed = 0;
