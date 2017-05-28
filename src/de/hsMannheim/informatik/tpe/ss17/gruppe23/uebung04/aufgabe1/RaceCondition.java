@@ -2,7 +2,7 @@ package de.hsMannheim.informatik.tpe.ss17.gruppe23.uebung04.aufgabe1;
 
 /**
  * Beispiel für eine Race Condition Situation:
- * Das Programm werhält sich in Anwesenheit mehrerer Threads nicht mehr (unbedingt) korrekt.
+ * Das Programm verhält sich in Anwesenheit mehrerer Threads nicht mehr (unbedingt) korrekt.
  * Dabei hängt das Ergebnis des Programms von der zeitlichen Abarbeitung der Threads ab,
  * die jedoch nicht eindeutig gegeben ist. So kann das Ergebnis (ungewollt) variieren,
  * da die Variablen in einen inkonsistenten Zustand versetzt werden (können).
