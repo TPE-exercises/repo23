@@ -2,9 +2,11 @@ package de.hsMannheim.informatik.tpe.ss17.gruppe23.uebung04.aufgabe2;
 
 /**
  * The parallel quick sort takes way more time, mostly because the management of
- * the threads takes more time then it gains. This effect is even more relevant
+ * the threads takes more time than it gains. This effect is even more relevant
  * when the parallelized tasks are not very time-consuming, so the sequential
  * approach is faster.
+ * The parallelization of the task comes with a huge administrative effort, the
+ * access on the array is synchronized.
  *
  * Gruppe 2-3:
  * @author Max Granzow(1624770)

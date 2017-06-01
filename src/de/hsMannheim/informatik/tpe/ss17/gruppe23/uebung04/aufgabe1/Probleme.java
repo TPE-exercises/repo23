@@ -3,6 +3,9 @@ package de.hsMannheim.informatik.tpe.ss17.gruppe23.uebung04.aufgabe1;
 /**
  * Wenn ein Programm mehrere Threads verwendet können mehrere Probleme auftreten,
  * die direkt durch die Verwendung mehrerer Threads ausgelöst werden.
+ * Dabei entstehen die meisten Probleme dadurch, dass auf einen gemeinsamen Speicher-
+ * bereich geschrieben wird. Wenn der Zugriff nicht synchronisiert wurde kann es zu
+ * inkonsistenten Zuständen der Daten führen.
  * 
  * Man unterscheidet drei Kategorien: Safety-, Liveness- und Performance Hazards.
  * 
