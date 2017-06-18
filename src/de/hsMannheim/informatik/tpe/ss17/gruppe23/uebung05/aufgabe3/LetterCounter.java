@@ -13,8 +13,10 @@ import java.util.Hashtable;
  */
 public class LetterCounter {
 
-	private static final char[] LOWER_LETTERS_WITH_UMLAUTS = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','ä','ö','ü','ß'};
-	private static final char[] NUMBERS = {'0','1','2','3','4','5','6','7','8','9'};
+	private static final char[] LETTERS_WITH_UMLAUTS = {
+			'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','ä','ö','ü','ß',
+			'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','Ä','Ö','Ü'
+	};
 
 	private static final String[] TEST_FILE_PATHS = {
 			"Bravo30Test30",
@@ -27,8 +29,8 @@ public class LetterCounter {
 	};
 
 	private static boolean isValidLetter(char letter){
-		for(int i = 0; i < LOWER_LETTERS_WITH_UMLAUTS.length; i++){
-			if(letter == LOWER_LETTERS_WITH_UMLAUTS[i]){
+		for(int i = 0; i < LETTERS_WITH_UMLAUTS.length; i++){
+			if(letter == LETTERS_WITH_UMLAUTS[i]){
 				return true;
 			}
 		}
@@ -60,19 +62,19 @@ public class LetterCounter {
 	}
 
 	/**
-	 * Returns an String with every word on on the reading line
+	 * Returns an String with every word on the reading line
+	 * or null if the line hasn't any word.
 	 * @param line
 	 * @return 
 	 */
 	private static String[] getWordsInLine(String line){
 		String[] words = null;
-		String lowerCaseWord = line.toLowerCase();
 
 		String word = "";
-		for(int i = 0; i < lowerCaseWord.length(); i++){
-			if(isValidLetter(lowerCaseWord.charAt(i))){
-				word = word + lowerCaseWord.charAt(i);
-				if((i + 1) >= lowerCaseWord.length()){
+		for(int i = 0; i < line.length(); i++){
+			if(isValidLetter(line.charAt(i))){
+				word = word + line.charAt(i);
+				if((i + 1) >= line.length()){
 					words = addNewWord(words, word);
 					word = "";
 				}
@@ -179,12 +181,6 @@ public class LetterCounter {
 		}
 	}
 }
-
-
-
-
-
-
 
 
 
