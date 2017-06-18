@@ -123,7 +123,7 @@ public class LetterCounter {
 	 * @param h
 	 */
 	private static void printOftenWords(Hashtable<String, Integer> h){
-		int outputNumberOfPrintingWords = 10;
+		int outputNumberOfPrintingWords = 100;
 		String[] oftenWords = new String[outputNumberOfPrintingWords];
 		int[] numbers = new int[outputNumberOfPrintingWords];
 
@@ -151,7 +151,7 @@ public class LetterCounter {
 		long time;
 
 		try{
-			f = new BufferedReader(new FileReader(TEST_FILE_PATHS[1]));
+			f = new BufferedReader(new FileReader(FILE_PATHS[0]));
 			time = System.currentTimeMillis();
 			while((line = f.readLine()) != null){
 				String[] newWords = getWordsInLine(line);
@@ -179,6 +179,12 @@ public class LetterCounter {
 		}
 	}
 }
+
+
+
+
+
+
 
 
 
