@@ -78,8 +78,10 @@ public class LetterCounter {
 				}
 			}
 			else{
-				words = addNewWord(words, word);
-				word = "";
+				if(word.length() > 0){
+					words = addNewWord(words, word);
+					word = "";
+				}		
 			}
 		}
 
@@ -100,7 +102,7 @@ public class LetterCounter {
 		numbers[position] = numberToInsertOnTheRightPosition;
 		return numbers;
 	}
-	
+
 	/**
 	 * Put a new String on the right position
 	 * @param oftenWords
@@ -121,7 +123,7 @@ public class LetterCounter {
 	 * @param h
 	 */
 	private static void printOftenWords(Hashtable<String, Integer> h){
-		int outputNumberOfPrintingWords = 100;
+		int outputNumberOfPrintingWords = 10;
 		String[] oftenWords = new String[outputNumberOfPrintingWords];
 		int[] numbers = new int[outputNumberOfPrintingWords];
 
@@ -136,7 +138,7 @@ public class LetterCounter {
 				}
 			}
 		}
-		
+
 		for(int i = 0; i < oftenWords.length; i++){
 			System.out.println((i + 1) + ".: " + oftenWords[i] + " mit " + numbers[i]);
 		}
@@ -149,17 +151,19 @@ public class LetterCounter {
 		long time;
 
 		try{
-			f = new BufferedReader(new FileReader(FILE_PATHS[0]));
+			f = new BufferedReader(new FileReader(TEST_FILE_PATHS[1]));
 			time = System.currentTimeMillis();
 			while((line = f.readLine()) != null){
 				String[] newWords = getWordsInLine(line);
-				for(int i = 0; i < newWords.length; i++){
-					if(!wordCollection.containsKey(newWords[i])){
-						wordCollection.put(newWords[i], 1);
-					}
-					else{
-						int value = wordCollection.get(newWords[i]) + 1;
-						wordCollection.replace(newWords[i], value);
+				if(!(newWords == null)){
+					for(int i = 0; i < newWords.length; i++){
+						if(!wordCollection.containsKey(newWords[i])){
+							wordCollection.put(newWords[i], 1);
+						}
+						else{
+							int value = wordCollection.get(newWords[i]) + 1;
+							wordCollection.replace(newWords[i], value);
+						}
 					}
 				}
 			}
