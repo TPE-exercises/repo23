@@ -1,9 +1,16 @@
-package de.hsMannheim.informatik.tpe.ss17.gruppe23.uebung05.aufgabe3;
+package de.hsMannheim.informatik.tpe.ss17.gruppe23.uebung05.aufgabe03;
 
 import java.io.*;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
+/**
+ * Gruppe 2-3:
+ * @author Max Granzow(1624770)
+ * @author Joshua Joost(1626034)
+ * This class reads the words out of an file and counts them.
+ * The 10 often words will be printed on the console furthermore the time needed to count the words.
+ */
 public class LetterCounter {
 
 	private static final char[] LOWER_LETTERS_WITH_UMLAUTS = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','ä','ö','ü','ß'};
@@ -28,6 +35,12 @@ public class LetterCounter {
 		return false;
 	}
 
+	/**
+	 * Adds a new word into the String array 
+	 * @param words String Array in which the new word added
+	 * @param wordToAdd 
+	 * @return String array with the new added word
+	 */
 	private static String[] addNewWord(String[] words, String wordToAdd){
 		if(wordToAdd != null){
 			String[] tmp;
@@ -46,6 +59,11 @@ public class LetterCounter {
 		return words;
 	}
 
+	/**
+	 * Returns an String with every word on on the reading line
+	 * @param line
+	 * @return 
+	 */
 	private static String[] getWordsInLine(String line){
 		String[] words = null;
 		String lowerCaseWord = line.toLowerCase();
@@ -68,6 +86,13 @@ public class LetterCounter {
 		return words;
 	}
 
+	/**
+	 * Put in the new number on the right position
+	 * @param numbers
+	 * @param position
+	 * @param numberToInsertOnTheRightPosition
+	 * @return New int array with the numberToInsertOnTheRightPosition
+	 */
 	private static int[] updateNumbers(int[] numbers, int position, int numberToInsertOnTheRightPosition){
 		for(int i = numbers.length - 1; i > position; i--){
 			numbers[i] = numbers[i - 1];
@@ -76,6 +101,13 @@ public class LetterCounter {
 		return numbers;
 	}
 	
+	/**
+	 * Put a new String on the right position
+	 * @param oftenWords
+	 * @param position
+	 * @param stringToInsertAtTheRightPosition
+	 * @return new String array with the stringToInsertAtTheRightPosition
+	 */
 	private static String[] updateOftenWords(String[] oftenWords, int position, String stringToInsertAtTheRightPosition){
 		for(int i = oftenWords.length - 1; i > position; i--){
 			oftenWords[i] = oftenWords[i - 1];
@@ -84,6 +116,10 @@ public class LetterCounter {
 		return oftenWords;
 	}
 
+	/**
+	 * Prints the often words out of the hashtable furthermore the number of the counted words.
+	 * @param h
+	 */
 	private static void printOftenWords(Hashtable<String, Integer> h){
 		int outputNumberOfPrintingWords = 100;
 		String[] oftenWords = new String[outputNumberOfPrintingWords];
@@ -131,11 +167,6 @@ public class LetterCounter {
 			time = System.currentTimeMillis() - time;
 			//Outputting the elements of the Hashmap
 			printOftenWords(wordCollection);
-//			Enumeration<String> e = wordCollection.keys();
-//			while(e.hasMoreElements()){
-//				String key = (String)e.nextElement();
-//				System.out.println(key + ": " + wordCollection.get(key));
-//			}
 			//Outputting the needed time
 			System.out.println("Benötigte Zeit: " + time + " ms.");
 			f.close();
