@@ -1,4 +1,4 @@
-package de.hsMannheim.informatik.tpe.ss17.gruppe23.uebung05.aufgabe3;
+package de.hsMannheim.informatik.tpe.ss17.gruppe23.uebung05.aufgabe03;
 
 import java.io.*;
 import java.util.Enumeration;
@@ -147,6 +147,10 @@ public class LetterCounter {
 					String tmp = oftenWords[i];
 					oftenWords[i] = oftenWords[j];
 					oftenWords[j] = tmp;
+					
+					int tmpNumber = numbers[i];
+					numbers[i] = numbers[j];
+					numbers[j] = tmpNumber;
 				}
 			}
 		}
