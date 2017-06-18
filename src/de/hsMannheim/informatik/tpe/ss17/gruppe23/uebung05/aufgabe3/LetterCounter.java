@@ -104,7 +104,7 @@ public class LetterCounter {
 		numbers[position] = numberToInsertOnTheRightPosition;
 		return numbers;
 	}
-	
+
 	/**
 	 * Put a new String on the right position
 	 * @param oftenWords
@@ -137,6 +137,16 @@ public class LetterCounter {
 					numbers = updateNumbers(numbers, i, h.get(key));
 					oftenWords = updateOftenWords(oftenWords, i, key);
 					break;
+				}
+			}
+		}
+
+		for(int i = 0; i < oftenWords.length; i++){
+			for(int j = oftenWords.length - 1; j >= i; j--){
+				if(oftenWords[j].toLowerCase().charAt(0) < oftenWords[i].toLowerCase().charAt(0)){
+					String tmp = oftenWords[i];
+					oftenWords[i] = oftenWords[j];
+					oftenWords[j] = tmp;
 				}
 			}
 		}
@@ -181,3 +191,14 @@ public class LetterCounter {
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
