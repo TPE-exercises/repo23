@@ -14,8 +14,8 @@ import java.util.Hashtable;
 public class LetterCounter {
 
 	private static final char[] LETTERS_WITH_UMLAUTS = {
-			'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','ä','ö','ü','ß',
-			'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','Ä','Ö','Ü'
+			'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','ä','ö','ü','ß'
+			//'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','Ä','Ö','Ü'
 	};
 
 	private static final String[] TEST_FILE_PATHS = {
@@ -69,12 +69,13 @@ public class LetterCounter {
 	 */
 	private static String[] getWordsInLine(String line){
 		String[] words = null;
+		String lowerCaseLine = line.toLowerCase();
 
 		String word = "";
-		for(int i = 0; i < line.length(); i++){
-			if(isValidLetter(line.charAt(i))){
-				word = word + line.charAt(i);
-				if((i + 1) >= line.length()){
+		for(int i = 0; i < lowerCaseLine.length(); i++){
+			if(isValidLetter(lowerCaseLine.charAt(i))){
+				word = word + lowerCaseLine.charAt(i);
+				if((i + 1) >= lowerCaseLine.length()){
 					words = addNewWord(words, word);
 					word = "";
 				}
