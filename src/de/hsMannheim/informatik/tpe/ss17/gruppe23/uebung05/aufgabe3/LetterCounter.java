@@ -1,4 +1,4 @@
-package de.hsMannheim.informatik.tpe.ss17.gruppe23.uebung05.aufgabe03;
+package de.hsMannheim.informatik.tpe.ss17.gruppe23.uebung05.aufgabe3;
 
 import java.io.*;
 import java.util.Enumeration;
